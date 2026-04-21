@@ -1,13 +1,15 @@
 package com.login.controller;
 
 
-import com.login.domain.UserDetails;
+
+import com.login.Entity.UserDetails;
 import com.login.service.UserService;
 import lombok.RequiredArgsConstructor;
+
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping
@@ -18,10 +20,17 @@ public class UserController {
 
 
     @PostMapping("/app/saveUser")
-    public ResponseEntity<?> createUser(UserDetails userDetails)
+    public ResponseEntity<?> createUser(@RequestBody UserDetails userDetails)
     {
 
-        return userService.saveUser(userDetails);
+        return userService.saveUserDetails(userDetails);
+    }
+
+    @GetMapping("/app/getUserDetails")
+    public List<UserDetails> getUserDetails()
+    {
+
+        return userService.getUserDetails();
     }
 
 

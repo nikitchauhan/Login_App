@@ -1,6 +1,7 @@
 package com.login.controller.advice;
 
 
+import com.login.exception.InvalidUserDetailsException;
 import com.login.exception.UserNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.coyote.BadRequestException;
@@ -30,6 +31,11 @@ public class LoginServiceControllerAdvice {
     {
         //return new ResponseEntity<>(UserResponse ,HttpStatus.NOT_FOUND);
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(InvalidUserDetailsException.class)
+    public ResponseEntity<String> handleInvalidUser(InvalidUserDetailsException ex) {
+        return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
     }
 
 
