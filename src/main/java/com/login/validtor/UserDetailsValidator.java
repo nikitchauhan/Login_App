@@ -12,9 +12,10 @@ public class UserDetailsValidator {
 
           if(userDetails.getFirstName().length()>5)
           {
-               throw new InvalidUserDetailsException("First name should not be more than 5 characters");
+               throw new InvalidUserDetailsException("First name should not be more than 6 characters",userDetails.getFirstName());
 
           }
+
 
 
      }
