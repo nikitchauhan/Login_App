@@ -3,16 +3,20 @@ package com.login.service.impl;
 
 
 import com.login.Entity.UserDetails;
+import com.login.constant.Constant;
 import com.login.exception.InvalidUserDetailsException;
 import com.login.repository.UserRepository;
 import com.login.service.UserService;
 import com.login.validtor.UserDetailsValidator;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Slf4j
 @Service
 public class UserServiceImpl implements UserService {
 
@@ -29,13 +33,16 @@ public class UserServiceImpl implements UserService {
           userDetailsValidator.validateUserDetails(userDetails);
 
           userRepo.save(userDetails);
+
+          return  new ResponseEntity<>(userDetails, HttpStatus.OK);
       }
       catch (Exception e)
-      {
-      System.out.println("Exception");
+      { log.info("Exception Triggered");
+       throw  new InvalidUserDetailsException(Constant.INVALID_USER_DETAILS,userDetails.getFirstName());
+
       }
 
-        return null;
+
     }
 
     @Override

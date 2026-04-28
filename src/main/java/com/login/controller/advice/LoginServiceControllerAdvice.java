@@ -3,16 +3,15 @@ package com.login.controller.advice;
 
 import com.login.exception.InvalidUserDetailsException;
 import com.login.exception.UserNotFoundException;
+import com.login.response.ErrorResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.coyote.BadRequestException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.ErrorResponse;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-@RestController
+@RestControllerAdvice
 @Slf4j
 public class LoginServiceControllerAdvice {
 
@@ -34,9 +33,13 @@ public class LoginServiceControllerAdvice {
     }
 
     @ExceptionHandler(InvalidUserDetailsException.class)
-    public ResponseEntity<String> handleInvalidUser(InvalidUserDetailsException ex) {
-        return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
+    public ResponseEntity<?> handleInvalidUser(InvalidUserDetailsException ex) {
+        return new ResponseEntity<>(
+                new ErrorResponse(
+                ex.getMessage()), HttpStatus.BAD_REQUEST);
+
     }
+
 
 
 }
