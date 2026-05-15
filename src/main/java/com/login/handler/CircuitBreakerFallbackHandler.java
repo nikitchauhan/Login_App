@@ -1,6 +1,6 @@
 package com.login.handler;
 
-import com.login.controller.advice.LoginServiceControllerAdvice;
+import com.login.controller.advice.UserServiceControllerAdvice;
 import com.login.exception.UserNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -14,7 +14,7 @@ public class CircuitBreakerFallbackHandler {
 
 
     @Autowired
-    LoginServiceControllerAdvice loginServiceControllerAdvice;
+    UserServiceControllerAdvice loginServiceControllerAdvice;
 
     public void checkException(Throwable throwable) throws Throwable {
         if (throwable instanceof MissingServletRequestParameterException)

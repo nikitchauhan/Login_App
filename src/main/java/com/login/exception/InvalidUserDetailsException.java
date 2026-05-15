@@ -12,7 +12,6 @@ public class InvalidUserDetailsException extends RuntimeException {
     private String field;
 
 
-
     public InvalidUserDetailsException(String message, String field) {
         super(message);
         this.field = field;

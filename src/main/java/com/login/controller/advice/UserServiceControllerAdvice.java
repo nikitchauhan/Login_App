@@ -1,6 +1,5 @@
 package com.login.controller.advice;
 
-
 import com.login.exception.InvalidUserDetailsException;
 import com.login.exception.UserNotFoundException;
 import com.login.response.ErrorResponse;
@@ -13,22 +12,21 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 @RestControllerAdvice
 @Slf4j
-public class LoginServiceControllerAdvice {
+public class UserServiceControllerAdvice {
 
-    @ExceptionHandler
+    @ExceptionHandler({BadRequestException.class})
     public ResponseEntity<?> handleBadRequestException(final BadRequestException badex)
     {
 
         String value ="Error";
-       // return new ResponseEntity<>(new ErrorResponse(value) , HttpStatus.BAD_REQUEST);
        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
 
-    @ExceptionHandler
+    @ExceptionHandler(UserNotFoundException.class)
     public ResponseEntity<?> handleUserNotFoundException(UserNotFoundException ex)
     {
-        //return new ResponseEntity<>(UserResponse ,HttpStatus.NOT_FOUND);
+
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
