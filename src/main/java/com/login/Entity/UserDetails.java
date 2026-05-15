@@ -1,14 +1,15 @@
 package com.login.Entity;
 
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import jakarta.persistence.*;
 import lombok.Data;
-
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 @Data
 @Entity
+
+
+@JsonPropertyOrder({"userId", "firstName", "lastName","password"})
 @Table(name = "userdetails")
 public class UserDetails {
 
@@ -22,4 +23,13 @@ public class UserDetails {
 
     @Column(name = "lastname")
     private String lastName;
+
+    @Column(name="password")
+    private String password;
+
+
+    //mapping
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+    @JsonManagedReference
+    private AddressDetails address;
 }
